@@ -2,11 +2,11 @@ version: '3.1'
 
 services:
   mongo:
-    container_name: mongo
+    container_name: mongo-lotto
     image: mongo:4.0.10
     restart: always
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
