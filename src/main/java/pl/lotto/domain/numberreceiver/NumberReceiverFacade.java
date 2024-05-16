@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import static pl.lotto.domain.numberreceiver.ValidationResult.*;
 
 @AllArgsConstructor
-class NumberReceiverFacade {
+public class NumberReceiverFacade {
     private final NumberValidator numberValidator;
     private final DrawDateGenerator drawDateGenerator;
     private final HashGenerable hashGenerator;
@@ -45,6 +45,10 @@ class NumberReceiverFacade {
         ticketRepository.save(savedTicket);
 
    return new NumberReceiverResponseDto(generatedTicket, INPUT_SUCCESS.info);
+    }
+    public List<TicketDto> retrieveAllTicketsByNextDrawDate() {
+        LocalDateTime nextDrawDate = drawDateGenerator.getNextDrawDate();
+        return retrieveAllTicketsByNextDrawDate(nextDrawDate);
     }
 
     public List<TicketDto> retrieveAllTicketsByNextDrawDate(LocalDateTime date) {
