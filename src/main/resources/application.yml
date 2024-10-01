@@ -3,9 +3,11 @@ spring:
     allow-bean-definition-overriding: true
   data:
     mongodb:
-      uri: mongodb://admin:admin@localhost:27017/lotto-web?authSource=admin
+      uri: mongodb://admin:admin@localhost:27017/lotto-web
 
 lotto:
+  result-checker:
+    lotteryRunOccurrence: "0 55 11 * * 6"
   number-generator:
     lotteryRunOccurrence: "0 0 12 * * 6"
     facade:

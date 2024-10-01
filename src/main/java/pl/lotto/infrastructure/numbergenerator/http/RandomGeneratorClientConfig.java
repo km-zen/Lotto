@@ -10,7 +10,7 @@ import pl.lotto.domain.numbergenerator.RandomNumberGenerable;
 import java.time.Duration;
 
 @Configuration
-class RandomGeneratorClientConfig {
+public class RandomGeneratorClientConfig {
 
     @Bean
     public RestTemplateResponseErrorHandler restTemplateResponseErrorHandler() {

@@ -13,7 +13,6 @@ import java.time.ZoneOffset;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static pl.lotto.domain.resultannouncer.MessageResponse.ALREADY_CHECKED;
@@ -32,7 +31,7 @@ class ResultAnnouncerFacadeTest {
         //given
         LocalDateTime drawDate = LocalDateTime.of(2022, 12, 17, 12, 0, 0);
         String hash = "123";
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().createForTest(resultCheckerFacade, responseRepository, Clock.systemUTC());
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, Clock.systemUTC());
         ResultDto resultDto = ResultDto.builder()
                 .hash("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -40,7 +39,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(false)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findTicketById(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -61,7 +60,7 @@ class ResultAnnouncerFacadeTest {
         //given
         LocalDateTime drawDate = LocalDateTime.of(2022, 12, 17, 12, 0, 0);
         String hash = "123";
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().createForTest(resultCheckerFacade, responseRepository, Clock.systemUTC());
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, Clock.systemUTC());
         ResultDto resultDto = ResultDto.builder()
                 .hash("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -69,7 +68,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findTicketById(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -91,7 +90,7 @@ class ResultAnnouncerFacadeTest {
         LocalDateTime drawDate = LocalDateTime.of(2022, 12, 31, 12, 0, 0);
         String hash = "123";
         Clock clock = Clock.fixed(LocalDateTime.of(2022, 12, 17, 12, 0, 0).toInstant(ZoneOffset.UTC), ZoneId.systemDefault());
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().createForTest(resultCheckerFacade, responseRepository, clock);
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, clock);
         ResultDto resultDto = ResultDto.builder()
                 .hash("123")
                 .numbers(Set.of(1, 2, 3, 4, 5, 6))
@@ -99,7 +98,7 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findTicketById(hash)).thenReturn(resultDto);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -119,9 +118,9 @@ class ResultAnnouncerFacadeTest {
     public void should_return_response_with_hash_does_not_exist_message_if_hash_does_not_exist() {
         //given
         String hash = "123";
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().createForTest(resultCheckerFacade, responseRepository, Clock.systemUTC());
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, Clock.systemUTC());
 
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(null);
+        when(resultCheckerFacade.findTicketById(hash)).thenReturn(null);
         //when
         ResultAnnouncerResponseDto resultAnnouncerResponseDto = resultAnnouncerFacade.checkResult(hash);
         //then
@@ -141,9 +140,9 @@ class ResultAnnouncerFacadeTest {
                 .drawDate(drawDate)
                 .isWinner(true)
                 .build();
-        when(resultCheckerFacade.findByHash(hash)).thenReturn(resultDto);
+        when(resultCheckerFacade.findTicketById(hash)).thenReturn(resultDto);
 
-        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().createForTest(resultCheckerFacade, responseRepository, Clock.systemUTC());
+        ResultAnnouncerFacade resultAnnouncerFacade = new ResultAnnouncerConfiguration().resultAnnouncerFacade(resultCheckerFacade, responseRepository, Clock.systemUTC());
         ResultAnnouncerResponseDto resultAnnouncerResponseDto1 = resultAnnouncerFacade.checkResult(hash);
         String underTest = resultAnnouncerResponseDto1.responseDto().hash();
         //when

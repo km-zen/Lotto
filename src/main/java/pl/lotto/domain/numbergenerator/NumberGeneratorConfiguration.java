@@ -6,7 +6,7 @@ import pl.lotto.domain.numberreceiver.NumberReceiverFacade;
 
 
 @Configuration
-class NumberGeneratorConfiguration {
+public class NumberGeneratorConfiguration {
 
     @Bean
     WinningNumbersGeneratorFacade winningNumbersGeneratorFacade(WinningNumbersRepository winningNumbersRepository, NumberReceiverFacade numberReceiverFacade, RandomNumberGenerable randomNumberGenerator, WinningNumbersGeneratorFacadeConfigurationProperties properties) {

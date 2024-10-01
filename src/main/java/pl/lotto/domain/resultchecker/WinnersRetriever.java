@@ -1,11 +1,12 @@
 package pl.lotto.domain.resultchecker;
 
+import org.springframework.stereotype.Service;
 import pl.lotto.domain.numberreceiver.Ticket;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+@Service
 class  WinnersRetriever {
 
     private final static int NUMBERS_WHEN_PLAYER_WON = 3;

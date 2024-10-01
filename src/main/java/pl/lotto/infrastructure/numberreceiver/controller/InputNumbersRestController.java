@@ -1,5 +1,6 @@
 package pl.lotto.infrastructure.numberreceiver.controller;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ class InputNumbersRestController {
     private final NumberReceiverFacade numberReceiverFacade;
 
     @PostMapping("/inputNumbers")
-    public ResponseEntity<NumberReceiverResponseDto> inputNumbers(@RequestBody NumberReceiverRequestDto requestDto){
+    public ResponseEntity<NumberReceiverResponseDto> inputNumbers(@RequestBody @Valid NumberReceiverRequestDto requestDto){
         Set<Integer> distinctNumbers = new HashSet<>(requestDto.inputNumbers());
         NumberReceiverResponseDto numberReceiverResponseDto = numberReceiverFacade.inputNumbers(distinctNumbers);
         return ResponseEntity.ok(numberReceiverResponseDto);
